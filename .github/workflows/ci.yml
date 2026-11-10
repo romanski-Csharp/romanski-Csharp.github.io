@@ -1,0 +1,46 @@
+name: Test & Deploy Portfolio
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: '10.0.x' }
+
+      - name: Build tests
+        run: dotnet build tests/Portfolio.Tests
+
+      - name: Install Playwright browsers
+        run: pwsh tests/Portfolio.Tests/bin/Debug/net10.0/playwright.ps1 install --with-deps chromium
+
+      - name: Serve site
+        run: python3 -m http.server 8080 &
+
+      - name: Run Playwright tests
+        run: dotnet test tests/Portfolio.Tests --no-build --logger "trx;LogFileName=results.trx"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: test-results, path: '**/TestResults/*.trx' }
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: { name: github-pages, url: '${{ steps.deployment.outputs.page_url }}' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: '.' }
+      - id: deployment
+        uses: actions/deploy-pages@v4

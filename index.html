@@ -1,0 +1,1167 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roman Chub · QA Automation Engineer (.NET)</title>
+    <meta name="description" content="Roman Chub — QA Automation Engineer (.NET). C#, Playwright, Selenium, Reqnroll, API testing, Azure DevOps CI/CD." />
+    <meta property="og:title" content="Roman Chub · QA Automation Engineer (.NET)" />
+    <meta property="og:description" content="Automated UI & API tests in C# with Playwright, Selenium and Reqnroll." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #0b0f17;
+            --bg-2: #111827;
+            --card: #151c2b;
+            --border: #243049;
+            --text: #e6eaf2;
+            --muted: #93a0b8;
+            --accent: #22c55e;
+            --accent-2: #38bdf8;
+            --danger: #f87171;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0,0,0,.35);
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f9fc;
+            --bg-2: #eef2f8;
+            --card: #ffffff;
+            --border: #dbe2ee;
+            --text: #0f172a;
+            --muted: #55627a;
+            --shadow: 0 10px 30px rgba(15,23,42,.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background .3s, color .3s;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1120px, 92%);
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 96px 0;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            color: var(--accent);
+            font-size: .9rem;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            margin-bottom: 40px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 50;
+            backdrop-filter: blur(12px);
+            background: color-mix(in srgb, var(--bg) 80%, transparent);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            font-family: var(--mono);
+            font-weight: 600;
+        }
+
+            .logo span {
+                color: var(--accent);
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            list-style: none;
+        }
+
+            .nav-links a {
+                color: var(--muted);
+                font-weight: 500;
+                transition: color .2s;
+            }
+
+                .nav-links a:hover {
+                    color: var(--text);
+                }
+
+        .icon-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .burger {
+            display: none;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            background: radial-gradient(circle at 15% 20%, rgba(34,197,94,.12), transparent 40%), radial-gradient(circle at 85% 70%, rgba(56,189,248,.12), transparent 40%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            font-size: .85rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .4;
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p.lead {
+            font-size: 1.15rem;
+            color: var(--muted);
+            max-width: 540px;
+            margin-bottom: 32px;
+        }
+
+        .btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: transform .2s, box-shadow .2s;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #04110a;
+            border-color: var(--accent);
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(34,197,94,.35);
+            }
+
+        .btn-ghost {
+            background: var(--card);
+            color: var(--text);
+        }
+
+            .btn-ghost:hover {
+                transform: translateY(-2px);
+            }
+
+        /* TERMINAL */
+        .terminal {
+            background: #0d1117;
+            border: 1px solid #263045;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            font-family: var(--mono);
+            font-size: .85rem;
+        }
+
+        .term-bar {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #161b22;
+            border-bottom: 1px solid #263045;
+            align-items: center;
+        }
+
+            .term-bar i {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                display: block;
+            }
+
+                .term-bar i:nth-child(1) {
+                    background: #ff5f56
+                }
+
+                .term-bar i:nth-child(2) {
+                    background: #ffbd2e
+                }
+
+                .term-bar i:nth-child(3) {
+                    background: #27c93f
+                }
+
+            .term-bar span {
+                margin-left: 10px;
+                color: #8b949e;
+                font-size: .8rem;
+            }
+
+        .term-body {
+            padding: 20px;
+            min-height: 330px;
+            color: #c9d1d9;
+            white-space: pre-wrap;
+        }
+
+        .t-cmd {
+            color: #e6edf3;
+        }
+
+        .t-prompt {
+            color: var(--accent);
+        }
+
+        .t-pass {
+            color: #3fb950;
+        }
+
+        .t-dim {
+            color: #8b949e;
+        }
+
+        .t-info {
+            color: var(--accent-2);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: #c9d1d9;
+            vertical-align: text-bottom;
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* STATS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: -40px;
+        }
+
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+        }
+
+            .stat b {
+                display: block;
+                font-size: 2rem;
+                font-family: var(--mono);
+                color: var(--accent);
+            }
+
+            .stat span {
+                color: var(--muted);
+                font-size: .9rem;
+            }
+
+        /* ABOUT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 40px;
+        }
+
+            .about-grid p {
+                color: var(--muted);
+                margin-bottom: 16px;
+                font-size: 1.05rem;
+            }
+
+        .info-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+        }
+
+            .info-card li {
+                list-style: none;
+                padding: 10px 0;
+                border-bottom: 1px dashed var(--border);
+                display: flex;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+                .info-card li:last-child {
+                    border: none;
+                }
+
+                .info-card li span:first-child {
+                    color: var(--muted);
+                }
+
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: transform .25s, border-color .25s;
+        }
+
+            .skill-card:hover {
+                transform: translateY(-4px);
+                border-color: var(--accent);
+            }
+
+            .skill-card h3 {
+                font-size: 1.05rem;
+                margin-bottom: 14px;
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: .78rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        /* PROJECTS */
+        .projects {
+            display: grid;
+            gap: 28px;
+        }
+
+        .project {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 32px;
+            transition: border-color .25s;
+        }
+
+            .project:hover {
+                border-color: var(--accent-2);
+            }
+
+        .project-type {
+            font-family: var(--mono);
+            font-size: .8rem;
+            color: var(--accent-2);
+            margin-bottom: 8px;
+        }
+
+        .project h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .project .links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+            .project .links a {
+                font-size: .9rem;
+                padding: 8px 14px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--bg-2);
+            }
+
+                .project .links a:hover {
+                    border-color: var(--accent);
+                }
+
+        .case {
+            display: grid;
+            gap: 14px;
+        }
+
+            .case div {
+                border-left: 3px solid var(--border);
+                padding-left: 14px;
+            }
+
+            .case strong {
+                font-family: var(--mono);
+                font-size: .8rem;
+                text-transform: uppercase;
+                letter-spacing: .05em;
+            }
+
+            .case .p strong {
+                color: var(--danger);
+            }
+
+            .case .a strong {
+                color: var(--accent-2);
+            }
+
+            .case .r strong {
+                color: var(--accent);
+            }
+
+            .case p, .case li {
+                color: var(--muted);
+                font-size: .95rem;
+            }
+
+            .case ul {
+                padding-left: 18px;
+            }
+
+        /* CODE */
+        .code-wrap {
+            background: #1d1f21;
+            border: 1px solid #263045;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            background: #161b22;
+            border-bottom: 1px solid #263045;
+        }
+
+        .tab {
+            font-family: var(--mono);
+            font-size: .82rem;
+            color: #8b949e;
+            padding: 12px 18px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+            .tab.active {
+                color: #e6edf3;
+                border-color: var(--accent);
+                background: #1d1f21;
+            }
+
+        .code-panel {
+            display: none;
+        }
+
+            .code-panel.active {
+                display: block;
+            }
+
+            .code-panel pre {
+                margin: 0 !important;
+                border-radius: 0 !important;
+                max-height: 480px;
+                font-size: .85rem !important;
+            }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+            border-left: 2px solid var(--border);
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 36px;
+        }
+
+            .tl-item::before {
+                content: '';
+                position: absolute;
+                left: -36px;
+                top: 6px;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--accent);
+                box-shadow: 0 0 0 4px var(--bg);
+            }
+
+            .tl-item h3 {
+                font-size: 1.15rem;
+            }
+
+        .tl-meta {
+            font-family: var(--mono);
+            font-size: .85rem;
+            color: var(--accent-2);
+            margin: 4px 0 10px;
+        }
+
+        .tl-item p {
+            color: var(--muted);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .cert {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+            .cert h4 {
+                margin-bottom: 6px;
+            }
+
+        /* CONTACT */
+        .contact {
+            text-align: center;
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+        }
+
+            .contact h2 {
+                margin-bottom: 16px;
+            }
+
+            .contact p {
+                color: var(--muted);
+                max-width: 560px;
+                margin: 0 auto 32px;
+            }
+
+            .contact .btns {
+                justify-content: center;
+            }
+
+        footer {
+            text-align: center;
+            padding: 28px;
+            color: var(--muted);
+            font-size: .85rem;
+            font-family: var(--mono);
+            border-top: 1px solid var(--border);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--accent);
+            color: #04110a;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: transform .3s;
+            z-index: 100;
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+        /* REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s, transform .7s;
+        }
+
+            .reveal.visible {
+                opacity: 1;
+                transform: none;
+            }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-grid, .about-grid, .project, .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: 0;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--bg);
+                padding: 24px;
+                border-bottom: 1px solid var(--border);
+                display: none;
+            }
+
+                .nav-links.open {
+                    display: flex;
+                }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav data-testid="navbar">
+        <div class="container nav-inner">
+            <a href="#home" class="logo">&#60;roman<span>.chub</span> /&#62;</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#code">Code</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="icon-btn" id="themeToggle" data-testid="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+            </ul>
+            <button class="icon-btn burger" id="burger" aria-label="Menu" data-testid="burger">☰</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="home">
+        <div class="container hero-grid">
+            <div>
+                <div class="badge" data-testid="status-badge"><span class="dot"></span> Open to work · Remote</div>
+                <h1 data-testid="hero-title">Hi, I'm Roman.<br /><span class="gradient">I break things — automatically.</span></h1>
+                <p class="lead">QA Automation Engineer (.NET) building reliable UI & API test suites with <b>C#</b>, <b>Playwright</b>, <b>Selenium</b> and <b>Reqnroll</b>, wired into <b>CI/CD</b> so every build is verified.</p>
+                <div class="btns">
+                    <a href="#projects" class="btn btn-primary" data-testid="cta-projects">View projects →</a>
+                    <a href="Roman_Chub_CV.pdf" download class="btn btn-ghost" data-testid="cta-cv">⬇ Download CV</a>
+                </div>
+            </div>
+            <div class="terminal" aria-hidden="true">
+                <div class="term-bar"><i></i><i></i><i></i><span>~/board-games-tests — pwsh</span></div>
+                <div class="term-body" id="terminal"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATS -->
+    <div class="container stats reveal">
+        <div class="stat"><b>400h</b><span>EPAM automation program</span></div>
+        <div class="stat"><b>2</b><span>End-to-end test projects</span></div>
+        <div class="stat"><b>UI + API</b><span>Test coverage layers</span></div>
+        <div class="stat"><b>CI/CD</b><span>Tests on every build</span></div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <p class="section-label">// 01. about</p>
+            <h2>About me</h2>
+            <div class="about-grid">
+                <div class="reveal">
+                    <p>I'm a QA Automation Engineer from Cherkasy, Ukraine, focused on the <b>.NET ecosystem</b>. I design test frameworks using <b>Page Object Model</b>, write <b>BDD scenarios</b> that non-technical people can read, and validate data with <b>REST API</b> and <b>SQL</b> checks.</p>
+                    <p>I completed a 400-hour intensive automation program at <b>EPAM</b>, working on two independent projects with mentors in an Agile setup.</p>
+                    <p>I actively use <b>AI tools</b> to speed up test design and scripting — but I always review and adapt generated code to framework and clean-code standards.</p>
+                </div>
+                <ul class="info-card reveal" data-testid="info-card">
+                    <li><span>Role</span><span>QA Automation Engineer</span></li>
+                    <li><span>Stack</span><span>C# · .NET</span></li>
+                    <li><span>Location</span><span>Cherkasy, UA</span></li>
+                    <li><span>Format</span><span>Remote</span></li>
+                    <li><span>English</span><span>Upper-Intermediate</span></li>
+                    <li><span>Education</span><span>BSc Software Eng.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" style="background: var(--bg-2);">
+        <div class="container">
+            <p class="section-label">// 02. skills</p>
+            <h2>Tech stack</h2>
+            <div class="skills-grid" data-testid="skills-grid">
+                <div class="skill-card reveal"><h3>💻 Languages</h3><div class="tags"><span class="tag">C#</span><span class="tag">.NET</span><span class="tag">SQL</span><span class="tag">Gherkin</span></div></div>
+                <div class="skill-card reveal"><h3>🎭 UI Automation</h3><div class="tags"><span class="tag">Playwright</span><span class="tag">Selenium WebDriver</span><span class="tag">Page Object Model</span></div></div>
+                <div class="skill-card reveal"><h3>🔌 API Testing</h3><div class="tags"><span class="tag">REST</span><span class="tag">Postman</span><span class="tag">Playwright API</span></div></div>
+                <div class="skill-card reveal"><h3>🥒 BDD</h3><div class="tags"><span class="tag">Reqnroll</span><span class="tag">Gherkin</span><span class="tag">NUnit</span></div></div>
+                <div class="skill-card reveal"><h3>⚙️ CI/CD & Tools</h3><div class="tags"><span class="tag">Azure DevOps</span><span class="tag">Git</span><span class="tag">Jira</span><span class="tag">JMeter</span></div></div>
+                <div class="skill-card reveal"><h3>🤖 AI-assisted QA</h3><div class="tags"><span class="tag">Prompt-based test design</span><span class="tag">AI coding assistants</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="container">
+            <p class="section-label">// 03. projects</p>
+            <h2>Featured projects</h2>
+            <div class="projects">
+
+                <article class="project reveal" data-testid="project-card">
+                    <div>
+                        <p class="project-type">EPAM · UI + API + BDD</p>
+                        <h3>Board Games Platform</h3>
+                        <p class="muted">Web-based platform for playing board games online. Built a full automation layer from UI to API, integrated into Azure DevOps.</p>
+                        <div class="tags" style="margin-top:16px">
+                            <span class="tag">C#</span><span class="tag">Playwright</span><span class="tag">Selenium</span><span class="tag">Reqnroll</span><span class="tag">Postman</span><span class="tag">Azure DevOps</span>
+                        </div>
+                        <div class="links">
+                            <a href="https://github.com/YOUR_GITHUB/board-games-tests" target="_blank" rel="noopener">⌥ Code</a>
+                            <a href="#" target="_blank" rel="noopener">▶ CI run</a>
+                            <a href="#" target="_blank" rel="noopener">📊 Test report</a>
+                        </div>
+                    </div>
+                    <div class="case">
+                        <div class="p"><strong>Problem</strong><p>Core user flows were re-tested manually before each release; API integration issues surfaced late.</p></div>
+                        <div class="a">
+                            <strong>Approach</strong>
+                            <ul>
+                                <li>UI regression suite with Playwright & Selenium WebDriver (POM)</li>
+                                <li>REST API tests with Postman and Playwright API</li>
+                                <li>BDD scenarios in Reqnroll (Gherkin) readable by stakeholders</li>
+                                <li>Test execution configured in Azure DevOps pipelines</li>
+                            </ul>
+                        </div>
+                        <div class="r"><strong>Result</strong><p>Tests run automatically on every build, regression coverage expanded and manual re-testing reduced.</p></div>
+                    </div>
+                </article>
+
+                <article class="project reveal" data-testid="project-card">
+                    <div>
+                        <p class="project-type">EPAM · UI Automation · AI-assisted</p>
+                        <h3>E-commerce Clothing Platform</h3>
+                        <p class="muted">Online clothing store. Audited coverage gaps and automated revenue-critical paths: search, cart and checkout.</p>
+                        <div class="tags" style="margin-top:16px">
+                            <span class="tag">.NET</span><span class="tag">Selenium</span><span class="tag">Playwright</span><span class="tag">NUnit</span><span class="tag">AI tools</span>
+                        </div>
+                        <div class="links">
+                            <a href="https://github.com/YOUR_GITHUB/ecommerce-tests" target="_blank" rel="noopener">⌥ Code</a>
+                            <a href="#" target="_blank" rel="noopener">📊 Test report</a>
+                        </div>
+                    </div>
+                    <div class="case">
+                        <div class="p"><strong>Problem</strong><p>Key functionality had no test coverage and relied on inconsistent manual checks.</p></div>
+                        <div class="a">
+                            <strong>Approach</strong>
+                            <ul>
+                                <li>Coverage audit to find untested functionality</li>
+                                <li>UI automation suite for search, cart and checkout</li>
+                                <li>AI-assisted test-case drafting & scripting, reviewed to match framework standards</li>
+                            </ul>
+                        </div>
+                        <div class="r"><strong>Result</strong><p>Revenue-critical flows covered; shorter time from “gap found” to “automated test in place”.</p></div>
+                    </div>
+                </article>
+
+                <article class="project reveal" data-testid="project-card">
+                    <div>
+                        <p class="project-type">Personal · Meta-project</p>
+                        <h3>This website 🙂</h3>
+                        <p class="muted">Yes, my portfolio is covered by automated tests. Every push runs Playwright (.NET) tests in GitHub Actions before deploying.</p>
+                        <div class="tags" style="margin-top:16px">
+                            <span class="tag">Playwright .NET</span><span class="tag">NUnit</span><span class="tag">GitHub Actions</span><span class="tag">GitHub Pages</span>
+                        </div>
+                        <div class="links">
+                            <a href="https://github.com/YOUR_GITHUB/YOUR_GITHUB.github.io" target="_blank" rel="noopener">⌥ Code</a>
+                            <a href="https://github.com/YOUR_GITHUB/YOUR_GITHUB.github.io/actions" target="_blank" rel="noopener">▶ CI runs</a>
+                        </div>
+                    </div>
+                    <div class="case">
+                        <div class="p"><strong>Problem</strong><p>A QA engineer's portfolio shouldn't ship broken links or layout bugs.</p></div>
+                        <div class="a"><strong>Approach</strong><ul><li>Smoke, navigation, theme & responsive tests</li><li>Quality gate: deploy only if tests pass</li></ul></div>
+                        <div class="r"><strong>Result</strong><p>Zero-manual-check deployment pipeline.</p></div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CODE -->
+    <section id="code" style="background: var(--bg-2);">
+        <div class="container">
+            <p class="section-label">// 04. code samples</p>
+            <h2>How I write tests</h2>
+            <div class="code-wrap reveal" data-testid="code-block">
+                <div class="tabs" role="tablist">
+                    <button class="tab active" data-tab="pom">LoginPage.cs</button>
+                    <button class="tab" data-tab="test">LoginTests.cs</button>
+                    <button class="tab" data-tab="bdd">Login.feature</button>
+                    <button class="tab" data-tab="api">GamesApiTests.cs</button>
+                </div>
+
+                <div class="code-panel active" id="pom">
+                    <pre><code class="language-csharp">public class LoginPage(IPage page)
+{
+    private ILocator Email    =&#62; page.GetByLabel("Email");
+    private ILocator Password =&#62; page.GetByLabel("Password");
+    private ILocator SignIn   =&#62; page.GetByRole(AriaRole.Button, new() { Name = "Sign in" });
+    public  ILocator Error    =&#62; page.GetByTestId("login-error");
+
+    public async Task OpenAsync() =&#62; await page.GotoAsync("/login");
+
+    public async Task LoginAsync(string email, string password)
+    {
+        await Email.FillAsync(email);
+        await Password.FillAsync(password);
+        await SignIn.ClickAsync();
+    }
+}</code></pre>
+                </div>
+
+                <div class="code-panel" id="test">
+                    <pre><code class="language-csharp">[TestFixture, Category("Regression")]
+public class LoginTests : PageTest
+{
+    private LoginPage _login = null!;
+
+    [SetUp]
+    public async Task SetUp()
+    {
+        _login = new LoginPage(Page);
+        await _login.OpenAsync();
+    }
+
+    [Test]
+    public async Task Login_WithValidCredentials_RedirectsToLobby()
+    {
+        await _login.LoginAsync(TestUsers.Player.Email, TestUsers.Player.Password);
+        await Expect(Page).ToHaveURLAsync(new Regex("/lobby"));
+    }
+
+    [TestCase("wrong@mail.com", "badpass")]
+    public async Task Login_WithInvalidCredentials_ShowsError(string email, string pass)
+    {
+        await _login.LoginAsync(email, pass);
+        await Expect(_login.Error).ToBeVisibleAsync();
+    }
+}</code></pre>
+                </div>
+
+                <div class="code-panel" id="bdd">
+                    <pre><code class="language-gherkin">Feature: Login
+  As a player
+  I want to sign in
+  So that I can join board game sessions
+
+  Background:
+    Given I am on the login page
+
+  Scenario: Successful login redirects to lobby
+    When I log in as "player"
+    Then I should be redirected to the lobby
+
+  Scenario Outline: Invalid credentials show an error
+    When I log in with "&#60;email&#62;" and "&#60;password&#62;"
+    Then I should see a login error
+
+    Examples:
+      | email          | password |
+      | wrong@mail.com | badpass  |
+      |                | 12345    |</code></pre>
+                </div>
+
+                <div class="code-panel" id="api">
+                    <pre><code class="language-csharp">[TestFixture, Category("API")]
+public class GamesApiTests : PlaywrightTest
+{
+    private IAPIRequestContext _api = null!;
+
+    [SetUp]
+    public async Task SetUp() =&#62;
+        _api = await Playwright.APIRequest.NewContextAsync(new() { BaseURL = Config.ApiUrl });
+
+    [Test]
+    public async Task GetGames_ReturnsOkAndNonEmptyList()
+    {
+        var response = await _api.GetAsync("/api/games");
+
+        Assert.That(response.Status, Is.EqualTo(200));
+        var games = await response.JsonAsync&#60;List&#60;GameDto&#62;&#62;();
+        Assert.That(games, Is.Not.Empty);
+        Assert.That(games, Has.All.Matches&#60;GameDto&#62;(g =&#62; !string.IsNullOrEmpty(g.Name)));
+    }
+
+    [TearDown]
+    public async Task TearDown() =&#62; await _api.DisposeAsync();
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE & EDUCATION -->
+    <section id="experience">
+        <div class="container two-col">
+            <div>
+                <p class="section-label">// 05. experience</p>
+                <h2>Experience</h2>
+                <div class="timeline">
+                    <div class="tl-item reveal">
+                        <h3>QA Automation Trainee · EPAM</h3>
+                        <p class="tl-meta">06/2026 — Present</p>
+                        <p>Automated UI & API testing for two projects (Board Games Platform, E-commerce Clothing Platform). Playwright, Selenium, Reqnroll, Postman, Azure DevOps CI/CD. Agile collaboration with mentors and team.</p>
+                    </div>
+                    <div class="tl-item reveal">
+                        <h3>Software Engineering, BSc</h3>
+                        <p class="tl-meta">09/2024 — Present</p>
+                        <p>The Bohdan Khmelnytsky National University of Cherkasy.</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="section-label">// 06. certificates</p>
+                <h2>Certificates</h2>
+                <div class="cert reveal">
+                    <h4>🏅 Automated Testing in .NET — EPAM</h4>
+                    <p class="tl-meta">06/2026 · Program level specialization</p>
+                    <div class="tags">
+                        <span class="tag">C# Advanced & .NET Fundamentals</span>
+                        <span class="tag">Test Automation with .NET Advanced</span>
+                        <span class="tag">Clean Code</span>
+                        <span class="tag">Generative AI for Productivity</span>
+                        <span class="tag">CloudX: Foundations for Tech</span>
+                    </div>
+                </div>
+                <div class="cert reveal">
+                    <h4>🌐 Languages</h4>
+                    <p class="muted">Ukrainian — Native · English — Upper-Intermediate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <p class="section-label">// 07. contact</p>
+            <h2>Let's work together</h2>
+            <p>Looking for a QA Automation / SDET role in the .NET stack. My inbox is always open.</p>
+            <div class="btns">
+                <button class="btn btn-primary" id="copyEmail" data-email="romanchub123@gmail.com" data-testid="copy-email">✉ romanchub123@gmail.com</button>
+                <a class="btn btn-ghost" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener" data-testid="linkedin">in LinkedIn</a>
+                <a class="btn btn-ghost" href="https://github.com/YOUR_GITHUB" target="_blank" rel="noopener" data-testid="github">⌥ GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © <span id="year"></span> Roman Chub · Built with HTML/CSS/JS · Tested with Playwright .NET ✅
+    </footer>
+
+    <div class="toast" id="toast">Email copied! ✅</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-gherkin.min.js"></script>
+    <script>// ---------- Terminal animation ----------
+  const lines = [
+    { t: '$ ', c: 't-prompt', cmd: 'dotnet test --filter Category=Regression' },
+    { t: '  Starting test execution, please wait...', c: 't-dim' },
+    { t: '  ✔ Login_WithValidCredentials_RedirectsToLobby', c: 't-pass' },
+    { t: '  ✔ CreateGame_AsHost_AppearsInLobby', c: 't-pass' },
+    { t: '  ✔ Api_GetGames_ReturnsOkAndNonEmptyList', c: 't-pass' },
+    { t: '  ✔ Cart_AddItem_UpdatesTotal', c: 't-pass' },
+    { t: '  ✔ Checkout_GuestUser_PlacesOrder', c: 't-pass' },
+    { t: '  Passed!  - Failed: 0, Passed: 5, Skipped: 0', c: 't-pass' },
+    { t: '$ ', c: 't-prompt', cmd: 'whoami' },
+    { t: '  roman-chub · QA Automation Engineer (.NET)', c: 't-info' },
+  ];
+  const term = document.getElementById('terminal');
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function runTerminal() {
+    for (const l of lines) {
+      const row = document.createElement('div');
+      term.appendChild(row);
+      if (l.cmd) {
+        row.innerHTML = `<span class="${l.c}">${l.t}</span><span class="t-cmd"></span><span class="cursor"></span>`;
+        const out = row.querySelector('.t-cmd');
+        for (const ch of l.cmd) { out.textContent += ch; await sleep(40); }
+        await sleep(350);
+        row.querySelector('.cursor').remove();
+      } else {
+        row.className = l.c; row.textContent = l.t; await sleep(280);
+      }
+    }
+    const end = document.createElement('div');
+    end.innerHTML = '<span class="t-prompt">$ </span><span class="cursor"></span>';
+    term.appendChild(end);
+  }
+  runTerminal();
+
+  // ---------- Theme ----------
+  const root = document.documentElement, themeBtn = document.getElementById('themeToggle');
+  const setTheme = t => { root.dataset.theme = t; themeBtn.textContent = t === 'dark' ? '🌙' : '☀️'; localStorage.setItem('theme', t); };
+  setTheme(localStorage.getItem('theme') || 'dark');
+  themeBtn.onclick = () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+
+  // ---------- Mobile menu ----------
+  const navLinks = document.getElementById('navLinks');
+  document.getElementById('burger').onclick = () => navLinks.classList.toggle('open');
+  navLinks.querySelectorAll('a').forEach(a => a.onclick = () => navLinks.classList.remove('open'));
+
+  // ---------- Code tabs ----------
+  document.querySelectorAll('.tab').forEach(tab => tab.onclick = () => {
+    document.querySelectorAll('.tab, .code-panel').forEach(el => el.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+
+  // ---------- Copy email ----------
+  const toast = document.getElementById('toast');
+  document.getElementById('copyEmail').onclick = async e => {
+    const email = e.currentTarget.dataset.email;
+    try { await navigator.clipboard.writeText(email); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2000); }
+    catch { location.href = `mailto:${email}`; }
+  };
+
+  // ---------- Reveal on scroll ----------
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); }
+  }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
